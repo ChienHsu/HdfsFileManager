@@ -18,12 +18,13 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.FsStatus;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapred.JobConf;
 
 /**
  * 
- * HDFS(·Ö²¼Ê½ÎÄ¼ş´æ´¢ÏµÍ³²Ù×÷Àà).
+ * HDFS(åˆ†å¸ƒå¼æ–‡ä»¶å­˜å‚¨ç³»ç»Ÿæ“ä½œç±»).
  * 
  * @author zhangs
  * @version 1.0 2013-11-22
@@ -33,19 +34,19 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	private static final String CONFIG_FILE_NAME = "hdfsConfig.properties";
 
 	/**
-	 * ÎÄ¼şÏµÍ³Àà
+	 * æ–‡ä»¶ç³»ç»Ÿç±»
 	 */
 	private FileSystem fileSystem;
 
 	/**
-	 * ÎŞ²ÎÊı¹¹Ôì·½·¨
+	 * æ— å‚æ•°æ„é€ æ–¹æ³•
 	 */
 	public HadoopFileSystemManagerImpl() {
 		init();
 	}
 
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 */
 	private void init() {
 		Configuration config = new JobConf(HadoopFileSystemManagerImpl.class);
@@ -54,22 +55,25 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 			Properties prop = new Properties();
 			prop.load(HadoopFileSystemManagerImpl.class.getClassLoader().getResourceAsStream(CONFIG_FILE_NAME));
 			String hdfsUrl = prop.getProperty("HDFS_URL");
-			String hdfsUser = prop.getProperty("HDFS_USER");// ÅäÖÃÎÄ¼ş¶ÁÈ¡µÇÂ½ÓÃ»§
+			String hdfsUser = prop.getProperty("HDFS_USER");// é…ç½®æ–‡ä»¶è¯»å–ç™»é™†ç”¨æˆ·
 
-			fileSystem = FileSystem.get(URI.create(hdfsUrl), config, hdfsUser);// Ö¸¶¨µÇÂ½ÓÃ»§
+			fileSystem = FileSystem.get(URI.create(hdfsUrl), config, hdfsUser);// æŒ‡å®šç™»é™†ç”¨æˆ·
 			// fileSystem = FileSystem.get(URI.create(hdfsUrl), config);
-			System.out.println("³õÊ¼»¯Á¬½Ó·şÎñÆ÷³É¹¦^_^");
+
+			fileSystem.getStatus();
+
+			System.out.println("åˆå§‹åŒ–è¿æ¥æœåŠ¡å™¨æˆåŠŸ^_^");
 		} catch (IOException e) {
-			System.err.println("³õÊ¼»¯Á¬½Ó·şÎñÆ÷Ê§°Ü!");
+			System.err.println("åˆå§‹åŒ–è¿æ¥æœåŠ¡å™¨å¤±è´¥!");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * »ñÈ¡HDFSÖ¸¶¨Ä¿Â¼ÏÂÎÄ¼ş×´Ì¬ÁĞ±í
+	 * è·å–HDFSæŒ‡å®šç›®å½•ä¸‹æ–‡ä»¶çŠ¶æ€åˆ—è¡¨
 	 * 
-	 * @param dirPathÖ¸¶¨Ä¿Â¼Â·¾¶
+	 * @param dirPathæŒ‡å®šç›®å½•è·¯å¾„
 	 * @return fileStatusList
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -80,9 +84,9 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * »ñÈ¡HDFSÖ¸¶¨Ä¿Â¼ÏÂÎÄ¼ş×´Ì¬ÁĞ±í
+	 * è·å–HDFSæŒ‡å®šç›®å½•ä¸‹æ–‡ä»¶çŠ¶æ€åˆ—è¡¨
 	 * 
-	 * @param pathStrÖ¸¶¨Ä¿Â¼Â·¾¶
+	 * @param pathStræŒ‡å®šç›®å½•è·¯å¾„
 	 * @return fileStatusList
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -94,7 +98,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * »ñÈ¡Ö¸¶¨Ä¿Â¼ÁĞ±íÂ·¾¶
+	 * è·å–æŒ‡å®šç›®å½•åˆ—è¡¨è·¯å¾„
 	 * 
 	 * @param dirPath
 	 */
@@ -108,13 +112,13 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 				fileList.add(fileStatus.getPath().toString());
 			}
 		} else {
-			System.out.println("Ä¿Â¼²»´æÔÚ");
+			System.out.println("ç›®å½•ä¸å­˜åœ¨");
 		}
 		return fileList;
 	}
 
 	/**
-	 * »ñÈ¡ÎÄ¼ş
+	 * è·å–æ–‡ä»¶
 	 * 
 	 * @param filePath
 	 * @return
@@ -126,11 +130,11 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ¸ü¸ÄHDSFÎÄ¼şÃû³Æ
+	 * æ›´æ”¹HDSFæ–‡ä»¶åç§°
 	 * 
 	 * @param fileOldName
 	 * @param fileNewName
-	 * @return boolean:ÊÇ·ñ¸üÃû×Ö³É¹¦
+	 * @return boolean:æ˜¯å¦æ›´åå­—æˆåŠŸ
 	 * @throws IOException
 	 */
 	public boolean rename(String src, String dst) throws IOException {
@@ -139,26 +143,26 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 			Path dstPath = new Path(dst);
 			return fileSystem.rename(srcPath, dstPath);
 		}
-		System.out.println("Ô­ÎÄ¼ş²»´æÔÚ");
+		System.out.println("åŸæ–‡ä»¶ä¸å­˜åœ¨");
 		return false;
 	}
 
 	/**
-	 * ´´½¨HDFSÄ¿Â¼
+	 * åˆ›å»ºHDFSç›®å½•
 	 * 
 	 * @param dir
 	 */
 	public boolean createDir(String dir) throws IOException {
 		Path path = new Path(dir);
 		if (fileSystem.exists(path)) {
-			System.out.println("´ËÄ¿Â¼ÒÑ¾­´æÔÚ²»ĞèÒªÔÙ´´½¨");
+			System.out.println("æ­¤ç›®å½•å·²ç»å­˜åœ¨ä¸éœ€è¦å†åˆ›å»º");
 			return true;
 		}
 		return fileSystem.mkdirs(path);
 	}
 
 	/**
-	 * ÉÏ´«±¾µØÎÄ¼şµ½HDFS£¨×¢ÒâÊÇ·şÎñÆ÷±¾µØÓ²ÅÌ£¬·Ç¿Í»§¶ËÓ²ÅÌ)£©
+	 * ä¸Šä¼ æœ¬åœ°æ–‡ä»¶åˆ°HDFSï¼ˆæ³¨æ„æ˜¯æœåŠ¡å™¨æœ¬åœ°ç¡¬ç›˜ï¼Œéå®¢æˆ·ç«¯ç¡¬ç›˜)ï¼‰
 	 * 
 	 * @return
 	 * @throws IOException
@@ -170,9 +174,9 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ÅúÁ¿ÉÏ´«±¾µØÎÄ¼şµ½HDFS
+	 * æ‰¹é‡ä¸Šä¼ æœ¬åœ°æ–‡ä»¶åˆ°HDFS
 	 * 
-	 * @param localFileSrcs±¾µØÎÄ¼şÁĞ±í
+	 * @param localFileSrcsæœ¬åœ°æ–‡ä»¶åˆ—è¡¨
 	 * @param HDFSFileDst
 	 * @throws IOException
 	 */
@@ -186,7 +190,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ´ÓHDFSÏÂÔØÎÄ¼şµ½±¾µØ(×¢ÒâÊÇ·şÎñÆ÷±¾µØÓ²ÅÌ£¬·Çä¯ÀÀÆ÷¿Í»§¶ËÓ²ÅÌ)
+	 * ä»HDFSä¸‹è½½æ–‡ä»¶åˆ°æœ¬åœ°(æ³¨æ„æ˜¯æœåŠ¡å™¨æœ¬åœ°ç¡¬ç›˜ï¼Œéæµè§ˆå™¨å®¢æˆ·ç«¯ç¡¬ç›˜)
 	 * 
 	 * @param HDFSFilePath
 	 * @param localFilePath
@@ -200,10 +204,10 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * HDFSÎÄ¼ş»òÄ¿Â¼ÊÇ·ñ´æÔÚ
+	 * HDFSæ–‡ä»¶æˆ–ç›®å½•æ˜¯å¦å­˜åœ¨
 	 * 
 	 * @param filePath
-	 * @return boolean:ÊÇ·ñ´æÔÚ
+	 * @return boolean:æ˜¯å¦å­˜åœ¨
 	 * @throws IOException
 	 */
 	public boolean exists(String filePath) throws IOException {
@@ -212,7 +216,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ¸ù¾İÂ·¾¶É¾³ıÎÄ¼ş»òÎÄ¼ş¼Ğ
+	 * æ ¹æ®è·¯å¾„åˆ é™¤æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹
 	 * 
 	 * @param filePath
 	 * @return
@@ -225,15 +229,15 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 			fileSystem.delete(path);
 			return true;
 		}
-		System.out.println("ÎÄ¼ş²»´æÔÚ");
+		System.out.println("æ–‡ä»¶ä¸å­˜åœ¨");
 		return false;
 	}
 
 	/**
-	 * ¼ôÇĞ±¾µØÎÄ¼şµ½HDFS(×¢ÒâÎª·şÎñÆ÷±¾µØÎÄ¼ş);
+	 * å‰ªåˆ‡æœ¬åœ°æ–‡ä»¶åˆ°HDFS(æ³¨æ„ä¸ºæœåŠ¡å™¨æœ¬åœ°æ–‡ä»¶);
 	 * 
-	 * @param src±¾µØÂ·¾¶
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param srcæœ¬åœ°è·¯å¾„
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void moveFromLocalFile(String localSrc, String HDFSDst) throws IOException {
@@ -243,10 +247,10 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * HDFSÎÄ¼şÖ®¼äµÄ¸´ÖÆ
+	 * HDFSæ–‡ä»¶ä¹‹é—´çš„å¤åˆ¶
 	 * 
-	 * @param srcÔ´ÎÄ¼şÂ·¾¶
-	 * @param dstÒª¸´ÖÆºó¸´ÖÆÎÄ¼şµÄÂ·¾¶
+	 * @param srcæºæ–‡ä»¶è·¯å¾„
+	 * @param dstè¦å¤åˆ¶åå¤åˆ¶æ–‡ä»¶çš„è·¯å¾„
 	 * @throws IOException
 	 */
 	public void copyHDFSFile(String src, String dst) throws IOException {
@@ -258,10 +262,10 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * HDFSÖĞÒÆ¶¯ÎÄ¼ş
+	 * HDFSä¸­ç§»åŠ¨æ–‡ä»¶
 	 * 
-	 * @param srcÔ´ÎÄ¼şÂ·¾¶
-	 * @param dstÒªÒÆ¶¯ºóµÄÂ·¾¶
+	 * @param srcæºæ–‡ä»¶è·¯å¾„
+	 * @param dstè¦ç§»åŠ¨åçš„è·¯å¾„
 	 * @throws IOException
 	 */
 	@SuppressWarnings("deprecation")
@@ -275,7 +279,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ¼ôÇĞHDFSÎÄ¼şµ½±¾µØ
+	 * å‰ªåˆ‡HDFSæ–‡ä»¶åˆ°æœ¬åœ°
 	 * 
 	 * @param HDFSSrc
 	 * @param localDst
@@ -288,10 +292,10 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * HDFS´´½¨ÎÄ¼ş
+	 * HDFSåˆ›å»ºæ–‡ä»¶
 	 * 
-	 * @param inÊäÈëÁ÷
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param inè¾“å…¥æµ
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void create(InputStream in, String dst) throws IOException {
@@ -301,10 +305,10 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ÔÚHDFS´´½¨ÎÄ¼ş
+	 * åœ¨HDFSåˆ›å»ºæ–‡ä»¶
 	 * 
 	 * @param file
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void create(File file, String dst) throws IOException {
@@ -313,10 +317,10 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ÔÚHDFS´´½¨ÎÄ¼ş
+	 * åœ¨HDFSåˆ›å»ºæ–‡ä»¶
 	 * 
-	 * @param src±¾µØÎÄ¼şÂ·¾¶
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param srcæœ¬åœ°æ–‡ä»¶è·¯å¾„
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void create(String src, String dst) throws IOException {
@@ -325,7 +329,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * »ñÈ¡FileSystem¶ÔÏó
+	 * è·å–FileSystemå¯¹è±¡
 	 * 
 	 * @return
 	 */
@@ -334,7 +338,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ¹Ø±ÕHDFS
+	 * å…³é—­HDFS
 	 * 
 	 * @throws IOException
 	 */
@@ -343,7 +347,7 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñÄ¿Â¼
+	 * åˆ¤æ–­æ˜¯å¦ç›®å½•
 	 * 
 	 * @param src
 	 * @return
@@ -358,13 +362,13 @@ public class HadoopFileSystemManagerImpl implements IHadoopFileSystemManager {
 		HadoopFileSystemManagerImpl hdfs = new HadoopFileSystemManagerImpl();
 		// hdfs.uploadLocalFile("D:/picture", "/test"); //
 		System.out.println(hdfs.dir("/"));
-		// hdfs.create("D:/picture/mypicture/POPº£±¨2590.jpg","/test/picture/mypicture/POPº£±¨2590.jpg");
+		// hdfs.create("D:/picture/mypicture/POPæµ·æŠ¥2590.jpg","/test/picture/mypicture/POPæµ·æŠ¥2590.jpg");
 		System.out.println(hdfs.dir("/test/picture/mypicture"));
 		// hdfs.uploadLocalFile(new String[]{"E:/input","E:/output"}, "/");
 		// hdfs.rename("/input", "/debug_in");
 		System.out.println(hdfs.dir("/debug_out"));
 		// hdfs.deleteFile("/output");
-		// hdfs.moveFromLocalFile("E:/test.jpg", "/test/picture/POPº£±¨2590.jpg");
+		// hdfs.moveFromLocalFile("E:/test.jpg", "/test/picture/POPæµ·æŠ¥2590.jpg");
 		/*
 		 * 
 		 * System.out.println(hdfs.dir("/test"));

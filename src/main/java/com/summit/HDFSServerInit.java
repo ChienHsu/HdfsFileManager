@@ -9,7 +9,7 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.mapred.JobConf;
 
 /**
- * HDFS·şÎñÆ÷
+ * HDFSæœåŠ¡å™¨
  * 
  * @author hjn
  * @version 1.0 2013-11-20
@@ -21,7 +21,7 @@ public class HDFSServerInit {
 
 	/**
 	 *
-	 * HDFS·şÎñÆ÷¶ÁÈ¡³õÊ¼»¯
+	 * HDFSæœåŠ¡å™¨è¯»å–åˆå§‹åŒ–
 	 */
 	private static void init() {
 		try {
@@ -33,7 +33,7 @@ public class HDFSServerInit {
 
 			fileSystem = FileSystem.get(URI.create(hdfsUrl), configuration);
 		} catch (IOException e) {
-			System.out.println("¶ÁÈ¡·şÎñÆ÷Ê§°Ü");
+			System.out.println("è¯»å–æœåŠ¡å™¨å¤±è´¥");
 			e.printStackTrace();
 		}
 	}

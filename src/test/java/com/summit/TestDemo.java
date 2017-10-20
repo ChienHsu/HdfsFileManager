@@ -14,16 +14,19 @@ public class TestDemo {
 		System.out.println(hdfs.dir("/user/hadoop/"));
 		// System.out.println(hdfs.exists("/user/hadoop/input/"));
 
-		// hdfs.uploadLocalFile("d:/个人文件转移工具(DOS之家).ini", "/user/hadoop/input//个人文件转移工具(DOS之家).ini");
-		// hdfs.create(new File("d:/个人文件转移工具(DOS之家).ini"),"/user/hadoop/input//个人文件转移工具(DOS之家).ini");
-		// hdfs.downFileToLocal("/user/hadoop/input//个人文件转移工具(DOS之家).ini", "e://a.ini");
+		// hdfs.uploadLocalFile("d:/涓汉鏂囦欢杞Щ宸ュ叿(DOS涔嬪).ini",
+		// "/user/hadoop/input//涓汉鏂囦欢杞Щ宸ュ叿(DOS涔嬪).ini");
+		// hdfs.create(new
+		// File("d:/涓汉鏂囦欢杞Щ宸ュ叿(DOS涔嬪).ini"),"/user/hadoop/input//涓汉鏂囦欢杞Щ宸ュ叿(DOS涔嬪).ini");
+		// hdfs.downFileToLocal("/user/hadoop/input//涓汉鏂囦欢杞Щ宸ュ叿(DOS涔嬪).ini",
+		// "e://a.ini");
 
 		// hdfs.uploadLocalFile("D:/picture", "/test"); //
-		// hdfs.create("D:/picture/mypicture/POP海报2590.jpg","/test/picture/mypicture/POP海报2590.jpg");
+		// hdfs.create("D:/picture/mypicture/POP娴锋姤2590.jpg","/test/picture/mypicture/POP娴锋姤2590.jpg");
 		// hdfs.uploadLocalFile(new String[]{"E:/input","E:/output"}, "/");
 		// hdfs.rename("/input", "/debug_in");
 		// System.out.println(hdfs.deleteFile("output"));
-		// hdfs.moveFromLocalFile("E:/test.jpg", "/test/picture/POP海报2590.jpg");
+		// hdfs.moveFromLocalFile("E:/test.jpg", "/test/picture/POP娴锋姤2590.jpg");
 
 		// hdfs.close();
 	}

@@ -13,50 +13,50 @@ import org.apache.hadoop.fs.Path;
 public interface IHadoopFileSystemManager {
 
 	/**
-	 * »ñÈ¡HDFSÖ¸¶¨Ä¿Â¼ÏÂÎÄ¼ş×´Ì¬ÁĞ±í
+	 * è·å–HDFSæŒ‡å®šç›®å½•ä¸‹æ–‡ä»¶çŠ¶æ€åˆ—è¡¨
 	 * 
-	 * @param dirPathÖ¸¶¨Ä¿Â¼Â·¾¶
+	 * @param dirPathæŒ‡å®šç›®å½•è·¯å¾„
 	 * @return fileStatusList
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	FileStatus[] getFileStatus(Path path) throws FileNotFoundException, IOException;// »ñÈ¡HDFSÖ¸¶¨Ä¿Â¼ÏÂÎÄ¼ş×´Ì¬ÁĞ±í
+	FileStatus[] getFileStatus(Path path) throws FileNotFoundException, IOException;// è·å–HDFSæŒ‡å®šç›®å½•ä¸‹æ–‡ä»¶çŠ¶æ€åˆ—è¡¨
 
 	/**
-	 * »ñÈ¡Ö¸¶¨Ä¿Â¼ÁĞ±íÂ·¾¶
+	 * è·å–æŒ‡å®šç›®å½•åˆ—è¡¨è·¯å¾„
 	 * 
 	 * @param dirPath
 	 */
-	List<String> dir(String dirPath) throws IOException;// »ñÈ¡Ö¸¶¨Ä¿Â¼ÁĞ±íÂ·¾¶
+	List<String> dir(String dirPath) throws IOException;// è·å–æŒ‡å®šç›®å½•åˆ—è¡¨è·¯å¾„
 
 	/**
-	 * »ñÈ¡ÎÄ¼ş
+	 * è·å–æ–‡ä»¶
 	 * 
 	 * @param filePath
 	 * @return
 	 * @throws IOException
 	 */
-	InputStream getFile(String filePath) throws IOException;// »ñÈ¡ÎÄ¼ş
+	InputStream getFile(String filePath) throws IOException;// è·å–æ–‡ä»¶
 
 	/**
-	 * ¸ü¸ÄHDSFÎÄ¼şÃû³Æ
+	 * æ›´æ”¹HDSFæ–‡ä»¶åç§°
 	 * 
 	 * @param fileOldName
 	 * @param fileNewName
-	 * @return boolean:ÊÇ·ñ¸üÃû×Ö³É¹¦
+	 * @return boolean:æ˜¯å¦æ›´åå­—æˆåŠŸ
 	 * @throws IOException
 	 */
-	boolean rename(String src, String dst) throws IOException;// ¸ü¸ÄHDSFÎÄ¼şÃû³Æ
+	boolean rename(String src, String dst) throws IOException;// æ›´æ”¹HDSFæ–‡ä»¶åç§°
 
 	/**
-	 * ´´½¨HDFSÄ¿Â¼
+	 * åˆ›å»ºHDFSç›®å½•
 	 * 
 	 * @param dir
 	 */
-	boolean createDir(String dir) throws IOException;// ´´½¨HDFSÄ¿Â¼
+	boolean createDir(String dir) throws IOException;// åˆ›å»ºHDFSç›®å½•
 
 	/**
-	 * ÉÏ´«±¾µØÎÄ¼şµ½HDFS£¨×¢ÒâÊÇ·şÎñÆ÷±¾µØÓ²ÅÌ£¬·Ç¿Í»§¶ËÓ²ÅÌ)£©
+	 * ä¸Šä¼ æœ¬åœ°æ–‡ä»¶åˆ°HDFSï¼ˆæ³¨æ„æ˜¯æœåŠ¡å™¨æœ¬åœ°ç¡¬ç›˜ï¼Œéå®¢æˆ·ç«¯ç¡¬ç›˜)ï¼‰
 	 * 
 	 * @return
 	 * @throws IOException
@@ -64,16 +64,16 @@ public interface IHadoopFileSystemManager {
 	public void uploadLocalFile(String localFileSrc, String HDFSFileDst) throws IOException;
 
 	/**
-	 * ÅúÁ¿ÉÏ´«±¾µØÎÄ¼şµ½HDFS
+	 * æ‰¹é‡ä¸Šä¼ æœ¬åœ°æ–‡ä»¶åˆ°HDFS
 	 * 
-	 * @param localFileSrcs±¾µØÎÄ¼şÁĞ±í
+	 * @param localFileSrcsæœ¬åœ°æ–‡ä»¶åˆ—è¡¨
 	 * @param HDFSFileDst
 	 * @throws IOException
 	 */
 	public void uploadLocalFile(String[] localFileSrcs, String HDFSFileDst) throws IOException;
 
 	/**
-	 * ´ÓHDFSÏÂÔØÎÄ¼şµ½±¾µØ(×¢ÒâÊÇ·şÎñÆ÷±¾µØÓ²ÅÌ£¬·Çä¯ÀÀÆ÷¿Í»§¶ËÓ²ÅÌ)
+	 * ä»HDFSä¸‹è½½æ–‡ä»¶åˆ°æœ¬åœ°(æ³¨æ„æ˜¯æœåŠ¡å™¨æœ¬åœ°ç¡¬ç›˜ï¼Œéæµè§ˆå™¨å®¢æˆ·ç«¯ç¡¬ç›˜)
 	 * 
 	 * @param HDFSFilePath
 	 * @param localFilePath
@@ -82,16 +82,16 @@ public interface IHadoopFileSystemManager {
 	public void downFileToLocal(String HDFSFilePath, String localFilePath) throws IOException;
 
 	/**
-	 * HDFSÎÄ¼ş»òÄ¿Â¼ÊÇ·ñ´æÔÚ
+	 * HDFSæ–‡ä»¶æˆ–ç›®å½•æ˜¯å¦å­˜åœ¨
 	 * 
 	 * @param filePath
-	 * @return boolean:ÊÇ·ñ´æÔÚ
+	 * @return boolean:æ˜¯å¦å­˜åœ¨
 	 * @throws IOException
 	 */
 	public boolean exists(String filePath) throws IOException;
 
 	/**
-	 * ¸ù¾İÂ·¾¶É¾³ıÎÄ¼ş»òÎÄ¼ş¼Ğ
+	 * æ ¹æ®è·¯å¾„åˆ é™¤æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹
 	 * 
 	 * @param filePath
 	 * 
@@ -101,34 +101,34 @@ public interface IHadoopFileSystemManager {
 	public boolean deleteFile(String filePath) throws IOException;
 
 	/**
-	 * ¼ôÇĞ±¾µØÎÄ¼şµ½HDFS(×¢ÒâÎª·şÎñÆ÷±¾µØÎÄ¼ş);
+	 * å‰ªåˆ‡æœ¬åœ°æ–‡ä»¶åˆ°HDFS(æ³¨æ„ä¸ºæœåŠ¡å™¨æœ¬åœ°æ–‡ä»¶);
 	 * 
-	 * @param src±¾µØÂ·¾¶
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param srcæœ¬åœ°è·¯å¾„
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void moveFromLocalFile(String localSrc, String HDFSDst) throws IOException;
 
 	/**
-	 * HDFSÎÄ¼şÖ®¼äµÄ¸´ÖÆ
+	 * HDFSæ–‡ä»¶ä¹‹é—´çš„å¤åˆ¶
 	 * 
-	 * @param srcÔ´ÎÄ¼şÂ·¾¶
-	 * @param dstÒª¸´ÖÆºó¸´ÖÆÎÄ¼şµÄÂ·¾¶
+	 * @param srcæºæ–‡ä»¶è·¯å¾„
+	 * @param dstè¦å¤åˆ¶åå¤åˆ¶æ–‡ä»¶çš„è·¯å¾„
 	 * @throws IOException
 	 */
 	public void copyHDFSFile(String src, String dst) throws IOException;
 
 	/**
-	 * HDFSÖĞÒÆ¶¯ÎÄ¼ş
+	 * HDFSä¸­ç§»åŠ¨æ–‡ä»¶
 	 * 
-	 * @param srcÔ´ÎÄ¼şÂ·¾¶
-	 * @param dstÒªÒÆ¶¯ºóµÄÂ·¾¶
+	 * @param srcæºæ–‡ä»¶è·¯å¾„
+	 * @param dstè¦ç§»åŠ¨åçš„è·¯å¾„
 	 * @throws IOException
 	 */
 	public void moveHDFSFile(String src, String dst) throws IOException;
 
 	/**
-	 * ¼ôÇĞHDFSÎÄ¼şµ½±¾µØ
+	 * å‰ªåˆ‡HDFSæ–‡ä»¶åˆ°æœ¬åœ°
 	 * 
 	 * @param HDFSSrc
 	 * @param localDst
@@ -137,48 +137,48 @@ public interface IHadoopFileSystemManager {
 	public void moveToLocalFile(String HDFSSrc, String localDst) throws IOException;
 
 	/**
-	 * HDFS´´½¨ÎÄ¼ş
+	 * HDFSåˆ›å»ºæ–‡ä»¶
 	 * 
-	 * @param inÊäÈëÁ÷
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param inè¾“å…¥æµ
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void create(InputStream in, String dst) throws IOException;
 
 	/**
-	 * ÔÚHDFS´´½¨ÎÄ¼ş
+	 * åœ¨HDFSåˆ›å»ºæ–‡ä»¶
 	 * 
 	 * @param file
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void create(File file, String dst) throws IOException;
 
 	/**
-	 * ÔÚHDFS´´½¨ÎÄ¼ş
+	 * åœ¨HDFSåˆ›å»ºæ–‡ä»¶
 	 * 
-	 * @param src±¾µØÎÄ¼şÂ·¾¶
-	 * @param dst·Ö²¼Ê½´æ´¢Â·¾¶
+	 * @param srcæœ¬åœ°æ–‡ä»¶è·¯å¾„
+	 * @param dståˆ†å¸ƒå¼å­˜å‚¨è·¯å¾„
 	 * @throws IOException
 	 */
 	public void create(String src, String dst) throws IOException;
 
 	/**
-	 * »ñÈ¡FileSystem¶ÔÏó
+	 * è·å–FileSystemå¯¹è±¡
 	 * 
 	 * @return
 	 */
 	public FileSystem getFileSystem();
 
 	/**
-	 * ¹Ø±ÕHDFS
+	 * å…³é—­HDFS
 	 * 
 	 * @throws IOException
 	 */
 	public void close() throws IOException;
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñÄ¿Â¼
+	 * åˆ¤æ–­æ˜¯å¦ç›®å½•
 	 * 
 	 * @param src
 	 * @return
